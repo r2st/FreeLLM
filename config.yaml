@@ -1,0 +1,38 @@
+# FreeLLM configuration — model preferences, timeouts, fallback order.
+
+request_timeout_seconds: 90
+
+# Providers are tried in this order until one succeeds.
+fallback_order:
+  - openrouter
+  - groq
+  - google_ai
+
+# Claude pricing used by /usage to estimate cost savings (USD per million tokens).
+# Defaults approximate Claude Sonnet pricing.
+claude_pricing:
+  input_per_mtok: 3.0
+  output_per_mtok: 15.0
+
+# Free models per provider, split by task tier.
+#   simple  -> formatting, templates, summaries, transformations
+#   complex -> code generation, code review, open-ended generation, chat
+# Within a tier, models are tried in order.
+models:
+  openrouter:
+    simple:
+      - openai/gpt-oss-20b:free
+    complex:
+      - openai/gpt-oss-120b:free
+      - meta-llama/llama-4-maverick:free
+      - google/gemini-2.5-pro-exp-03-25:free
+  groq:
+    simple:
+      - llama-3.1-8b-instant
+    complex:
+      - llama-3.3-70b-versatile
+  google_ai:
+    simple:
+      - gemini-2.0-flash
+    complex:
+      - gemini-2.5-flash
