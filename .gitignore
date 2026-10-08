@@ -7,3 +7,7 @@ __pycache__/
 *.db
 .DS_Store
 .venv/
+
+# Environment
+.env*
+!.env.example
